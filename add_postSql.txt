@@ -12,9 +12,9 @@ How To Deploy Backend Server On vercel
             Again Run This Command   pip freeze > requirements.txt
 
             Add This Line Into In middleware In Settings.py 
-                "whitenoise.middleware.WhiteNoiseMiddleware"
+                "whitenoise.middleware.WhiteNoiseMiddleware",
             Add This Line In InstallApp In Settings.py
-                "whitenoise.runserver_nostatic"
+                "whitenoise.runserver_nostatic",
 
 
     How TO Add PostSql Database
