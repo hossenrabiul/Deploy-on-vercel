@@ -1,0 +1,67 @@
+How To Deploy Backend Server On vercel
+
+1. Add First Add PostSql Database Into Your Project.
+    Prepate Your Project For Adding PostSql Datebase
+        Run This Command In Your Project Terminal
+            Search On Google psycopg2, You Will Get THis Line
+                pip install psycopg2-binary,
+            Search On Google whitenoise django, You Will Get THis Line
+                pip install whitenoise
+            
+            pip install whitenoise,
+            Again Run This Command   pip freeze > requirements.txt
+
+            Add This Line Into In middleware In Settings.py 
+                "whitenoise.middleware.WhiteNoiseMiddleware"
+            Add This Line In InstallApp In Settings.py
+                "whitenoise.runserver_nostatic"
+
+
+    How TO Add PostSql Database
+    1. Crate A Project In Superbase Website
+    2. Search On Google How To Connect PostSql Database
+    3. Copy Necessary Information From Superbase Project
+    4. Add This Command In Settings.py File In Your Project "whitenoise.runserver_nostatic",
+    5. Run These COmmant In Your Project Terminal
+        py manage.py makemigrations
+        py manage.py migrate
+
+2. Run This Command In Your Project Terminal
+     pip freeze > requirements.txt
+     
+
+2. Add This Command In Settings.py In Your Project 
+    ALLOWED_HOSTS = ["127.0.0.1", ".vercel.app"],
+
+    STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+3. Create A File Named "gitignore", In This File Write These Line,
+    (Your Project Folder Name/.env)
+    db.sqlite3
+    __pycache__/
+
+4. Create A File Named "vercel.json", Paste These Code Into That File,
+
+    {
+    "builds": [{
+      "src": "(Your Project Folder Name)/wsgi.py",
+      "use": "@vercel/python",
+      "config": { "maxLambdaSize": "15mb", "runtime": "python3.11.3" }
+    }],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "(Your Project Folder Name)/wsgi.py"
+      }
+    ]
+    }
+
+5. Add This Line Into Your 'Wsgi.py' File 
+    app = application
+
+6. In Settings.py File THere Will Be A Line Like THis " WSGI_APPLICATION = 'blood_project.wsgi.application'  " Modify THis Line Into "  WSGI_APPLICATION = 'blood_project.wsgi.app'  "
+
+7. Run THis Command In Your Project Terminal
+    py manage.py collectstatic
+
+8. Push Your Project Into Your Github File
